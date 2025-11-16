@@ -1,0 +1,11 @@
+{
+  "health": 100,
+  "inventory": [
+    "树枝",
+    "生锈的钥匙",
+    "神秘日记",
+    "古老护身符"
+  ],
+  "current_scene": "ending_bad",
+  "game_flags": {}
+}
