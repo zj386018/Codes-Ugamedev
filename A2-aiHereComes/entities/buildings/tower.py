@@ -1,8 +1,19 @@
 import pygame
+from typing import Dict
 from entities.building import Building
 
 
 class Tower(Building):
+    # Upgrade costs: level -> cost dict
+    WOOD_UPGRADE_COSTS = {
+        1: {"wood": 20, "gold": 15},
+        2: {"wood": 30, "gold": 25},
+    }
+    STONE_UPGRADE_COSTS = {
+        1: {"stone": 20, "gold": 20},
+        2: {"stone": 35, "gold": 35},
+    }
+
     def __init__(self, tile_x: int, tile_y: int, tower_type: str = "wood"):
         if tower_type == "stone":
             super().__init__(
@@ -35,6 +46,23 @@ class Tower(Building):
 
         self.attack_timer = 0.0
         self.target = None
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        costs = self.STONE_UPGRADE_COSTS if self.tower_type == "stone" else self.WOOD_UPGRADE_COSTS
+        return costs.get(self.level, {})
+
+    def upgrade(self):
+        if self.tower_type == "stone":
+            self.max_hp += 80
+            self.hp = self.max_hp
+            self.attack_damage += 8
+            self.attack_range += 1
+        else:
+            self.max_hp += 50
+            self.hp = self.max_hp
+            self.attack_damage += 5
+            self.attack_range += 1
+        self.level += 1
 
     def get_color(self):
         return self.tower_color

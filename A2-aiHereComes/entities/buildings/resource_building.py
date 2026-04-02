@@ -16,6 +16,17 @@ class ResourceBuilding(Building):
         self.production = production  # e.g. {"food": 5} means 5 per 10s
         self.production_timer = 0.0
         self.building_color = color
+        self.base_production = dict(production)  # store base for scaling
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        """Override in each resource building subclass."""
+        return {}
+
+    def upgrade(self):
+        # Increase production by 50% of base per level
+        for res in self.production:
+            self.production[res] = self.base_production[res] + self.base_production[res] * (self.level) // 2
+        self.level += 1
 
     def update(self, dt):
         super().update(dt)
@@ -31,6 +42,11 @@ class ResourceBuilding(Building):
 
 
 class Farm(ResourceBuilding):
+    UPGRADE_COSTS = {
+        1: {"wood": 15, "gold": 10},
+        2: {"wood": 25, "gold": 20},
+    }
+
     def __init__(self, tile_x: int, tile_y: int):
         super().__init__(
             tile_x=tile_x, tile_y=tile_y,
@@ -42,6 +58,9 @@ class Farm(ResourceBuilding):
             production={"food": 5},
             color=(120, 160, 50)
         )
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        return self.UPGRADE_COSTS.get(self.level, {})
 
     def _draw_detail(self, surface: pygame.Surface, sx: int, sy: int):
         w, h = self.width, self.height
@@ -60,6 +79,11 @@ class Farm(ResourceBuilding):
 
 
 class LumberMill(ResourceBuilding):
+    UPGRADE_COSTS = {
+        1: {"wood": 15, "gold": 10},
+        2: {"wood": 25, "gold": 20},
+    }
+
     def __init__(self, tile_x: int, tile_y: int):
         super().__init__(
             tile_x=tile_x, tile_y=tile_y,
@@ -71,6 +95,9 @@ class LumberMill(ResourceBuilding):
             production={"wood": 8},
             color=(100, 70, 40)
         )
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        return self.UPGRADE_COSTS.get(self.level, {})
 
     def _draw_detail(self, surface: pygame.Surface, sx: int, sy: int):
         w, h = self.width, self.height  # 64x64
@@ -165,6 +192,11 @@ class LumberMill(ResourceBuilding):
 
 
 class Quarry(ResourceBuilding):
+    UPGRADE_COSTS = {
+        1: {"stone": 15, "gold": 10},
+        2: {"stone": 25, "gold": 20},
+    }
+
     def __init__(self, tile_x: int, tile_y: int):
         super().__init__(
             tile_x=tile_x, tile_y=tile_y,
@@ -176,6 +208,9 @@ class Quarry(ResourceBuilding):
             production={"stone": 6},
             color=(140, 140, 150)
         )
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        return self.UPGRADE_COSTS.get(self.level, {})
 
     def _draw_detail(self, surface: pygame.Surface, sx: int, sy: int):
         w, h = self.width, self.height  # 64x64
@@ -258,6 +293,11 @@ class Quarry(ResourceBuilding):
 
 
 class GoldMine(ResourceBuilding):
+    UPGRADE_COSTS = {
+        1: {"stone": 20, "gold": 15},
+        2: {"stone": 30, "gold": 30},
+    }
+
     def __init__(self, tile_x: int, tile_y: int):
         super().__init__(
             tile_x=tile_x, tile_y=tile_y,
@@ -269,6 +309,9 @@ class GoldMine(ResourceBuilding):
             production={"gold": 3},
             color=(160, 140, 50)
         )
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        return self.UPGRADE_COSTS.get(self.level, {})
 
     def _draw_detail(self, surface: pygame.Surface, sx: int, sy: int):
         # Mine entrance (dark arch)

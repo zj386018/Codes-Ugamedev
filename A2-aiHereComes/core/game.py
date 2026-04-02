@@ -16,6 +16,7 @@ from systems.particle_system import ParticleSystem
 from systems.wave_manager import WaveManager, WaveState
 from save.save_manager import SaveManager
 from entities.buildings.town_center import TownCenter
+from entities.building import Building
 from entities.zombie import Zombie
 from ui.hud import HUD
 from ui.build_panel import BuildPanel
@@ -105,6 +106,7 @@ class Game:
                                          on_repair=self._on_repair_all)
         self.notification = NotificationManager()
         self.info_panel = InfoPanel()
+        self.info_panel.on_upgrade = self._on_upgrade_building
         self.screen_effects = ScreenEffects()
 
         # Center camera
@@ -128,6 +130,20 @@ class Game:
             self.screen_effects.shake(amount=2.0, duration=0.15)
         else:
             self.notification.show("所有建筑状态良好", 1.5, (200, 200, 100))
+
+    def _on_upgrade_building(self):
+        entity = self.info_panel.selected
+        if not isinstance(entity, Building) or not entity.can_upgrade():
+            return
+        cost = entity.get_upgrade_cost()
+        if not self.resource_manager.can_afford(cost):
+            self.notification.show("资源不足，无法升级！", 2.0, (200, 100, 100))
+            return
+        self.resource_manager.spend(cost)
+        entity.upgrade()
+        self.notification.show(
+            f"{entity.name} 升级到 Lv{entity.level}！", 2.0, (255, 220, 50))
+        self.screen_effects.shake(amount=2.0, duration=0.1)
 
     def run(self):
         while self.running:
@@ -185,6 +201,8 @@ class Game:
 
         for event in events:
             if self.build_panel.handle_event(event):
+                continue
+            if self.info_panel.handle_event(event):
                 continue
 
             if event.type == pygame.MOUSEBUTTONDOWN:

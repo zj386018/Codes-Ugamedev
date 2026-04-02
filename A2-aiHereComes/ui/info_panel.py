@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Callable
 import pygame
 from constants import Color, TILE_SIZE, get_font
 from entities.building import Building
@@ -20,9 +20,12 @@ class InfoPanel:
         self.selected: Optional[object] = None
         self.font = get_font(20)
         self.title_font = get_font(24)
+        self.btn_font = get_font(16)
         self.panel_width = 200
         self.panel_x = 10
         self.panel_y = 40
+        self.on_upgrade: Optional[Callable] = None
+        self._upgrade_btn_rect: Optional[pygame.Rect] = None
 
     def select(self, entity):
         self.selected = entity
@@ -31,6 +34,16 @@ class InfoPanel:
     def deselect(self):
         self.selected = None
         self.visible = False
+
+    def handle_event(self, event: pygame.event.Event) -> bool:
+        if not self.visible or not self._upgrade_btn_rect:
+            return False
+        if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+                and self._upgrade_btn_rect.collidepoint(event.pos)):
+            if self.on_upgrade:
+                self.on_upgrade()
+            return True
+        return False
 
     def draw(self, surface: pygame.Surface, camera):
         if not self.visible or self.selected is None:
@@ -46,9 +59,14 @@ class InfoPanel:
         name = entity.name if hasattr(entity, 'name') else "实体"
         lines.append((name, self.title_font, Color.UI_TEXT))
 
+        # Level
+        if isinstance(entity, Building):
+            level_text = f"等级: Lv{entity.level}/{entity.max_level}"
+            lines.append((level_text, self.font, (255, 220, 50) if entity.level > 1 else Color.UI_TEXT))
+
         # HP
         hp_text = f"生命: {entity.hp}/{entity.max_hp}"
-        hp_color = Color.HP_GREEN if entity.hp > entity.max_hp * 0.5 else Color.HP_YELLOW if entity.hp > entity.max_hp * 0.25 else Color.HP_RED
+        hp_color = (0, 200, 0) if entity.hp > entity.max_hp * 0.5 else (200, 200, 0) if entity.hp > entity.max_hp * 0.25 else (200, 0, 0)
         lines.append((hp_text, self.font, hp_color))
 
         if isinstance(entity, Building):
@@ -94,6 +112,13 @@ class InfoPanel:
         # Calculate panel height
         h = len(lines) * 22 + 15
 
+        # Upgrade button space
+        self._upgrade_btn_rect = None
+        show_upgrade = (isinstance(entity, Building) and entity.can_upgrade()
+                        and entity.is_complete)
+        if show_upgrade:
+            h += 28
+
         # Draw panel
         panel_rect = pygame.Rect(x, y, w, h)
         bg = pygame.Surface((w, h), pygame.SRCALPHA)
@@ -105,3 +130,19 @@ class InfoPanel:
         for i, (text, font, color) in enumerate(lines):
             text_surf = font.render(text, True, color)
             surface.blit(text_surf, (x + 8, y + 8 + i * 22))
+
+        # Draw upgrade button
+        if show_upgrade:
+            btn_y = y + 8 + len(lines) * 22
+            cost = entity.get_upgrade_cost()
+            cost_str = " ".join(f"{RESOURCE_CN.get(r, r)}{a}" for r, a in cost.items())
+
+            btn_rect = pygame.Rect(x + 8, btn_y, w - 16, 24)
+            pygame.draw.rect(surface, (60, 120, 60), btn_rect)
+            pygame.draw.rect(surface, (80, 160, 80), btn_rect, 1)
+
+            btn_text = self.btn_font.render(f"↑ 升级 ({cost_str})", True, Color.UI_TEXT)
+            surface.blit(btn_text,
+                         (btn_rect.x + btn_rect.width // 2 - btn_text.get_width() // 2,
+                          btn_rect.y + 4))
+            self._upgrade_btn_rect = btn_rect

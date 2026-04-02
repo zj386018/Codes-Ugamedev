@@ -25,6 +25,10 @@ class Building(Entity):
         self.construction_progress = 0.0 if build_time > 0 else 1.0
         self.is_complete = build_time == 0
 
+        # Upgrade system
+        self.level = 1
+        self.max_level = 3
+
     def get_occupied_tiles(self) -> List[Tuple[int, int]]:
         tiles = []
         for dy in range(self.tile_height):
@@ -81,6 +85,13 @@ class Building(Entity):
         # Draw building-specific detail/icon
         if self.is_complete:
             self._draw_detail(surface, int(sx), int(sy))
+            # Draw level indicator (stars in top-right)
+            if self.level > 1:
+                star_font = pygame.font.SysFont(None, 16)
+                star_text = "★" * (self.level - 1)
+                star_surf = star_font.render(star_text, True, (255, 220, 50))
+                surface.blit(star_surf, (int(sx) + self.width - star_surf.get_width() - 2,
+                                         int(sy) + 2))
 
         # Construction progress bar
         if not self.is_complete:
@@ -103,4 +114,15 @@ class Building(Entity):
 
     def _draw_detail(self, surface: pygame.Surface, sx: int, sy: int):
         """Override in subclasses to draw building-specific details."""
+        pass
+
+    def can_upgrade(self) -> bool:
+        return self.level < self.max_level and self.is_complete
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        """Override in subclasses. Returns cost dict for next upgrade."""
+        return {}
+
+    def upgrade(self):
+        """Override in subclasses to apply upgrade effects."""
         pass

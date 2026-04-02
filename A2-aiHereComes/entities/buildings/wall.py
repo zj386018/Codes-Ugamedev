@@ -1,8 +1,14 @@
 import pygame
+from typing import Dict
 from entities.building import Building
 
 
 class Wall(Building):
+    UPGRADE_COSTS = {
+        1: {"stone": 15, "gold": 10},
+        2: {"stone": 25, "gold": 20},
+    }
+
     def __init__(self, tile_x: int, tile_y: int):
         super().__init__(
             tile_x=tile_x, tile_y=tile_y,
@@ -12,6 +18,14 @@ class Wall(Building):
             build_time=2,
             name="城墙"
         )
+
+    def get_upgrade_cost(self) -> Dict[str, int]:
+        return self.UPGRADE_COSTS.get(self.level, {})
+
+    def upgrade(self):
+        self.max_hp += 100
+        self.hp = self.max_hp
+        self.level += 1
 
     def get_color(self):
         return (140, 120, 100)
