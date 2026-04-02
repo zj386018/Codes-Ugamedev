@@ -1,0 +1,99 @@
+{
+    "wall": {
+        "name": "Wall",
+        "tile_size": [1, 1],
+        "cost": {"wood": 10, "stone": 5},
+        "hp": 200,
+        "build_time": 2,
+        "color": [140, 120, 100]
+    },
+    "wood_tower": {
+        "name": "Wood Tower",
+        "tile_size": [1, 1],
+        "cost": {"wood": 30, "stone": 10},
+        "hp": 100,
+        "build_time": 5,
+        "range": 5,
+        "damage": 10,
+        "attack_speed": 1.0,
+        "color": [160, 100, 50]
+    },
+    "stone_tower": {
+        "name": "Stone Tower",
+        "tile_size": [1, 1],
+        "cost": {"wood": 10, "stone": 40},
+        "hp": 200,
+        "build_time": 8,
+        "range": 7,
+        "damage": 15,
+        "attack_speed": 0.8,
+        "color": [120, 120, 130]
+    },
+    "farm": {
+        "name": "Farm",
+        "tile_size": [2, 2],
+        "cost": {"wood": 20, "stone": 5},
+        "hp": 50,
+        "build_time": 4,
+        "production": {"food": 5},
+        "color": [180, 180, 60]
+    },
+    "house": {
+        "name": "House",
+        "tile_size": [2, 2],
+        "cost": {"wood": 30, "stone": 10},
+        "hp": 80,
+        "build_time": 5,
+        "population_bonus": 5,
+        "color": [170, 130, 80]
+    },
+    "storage": {
+        "name": "Storage",
+        "tile_size": [2, 2],
+        "cost": {"wood": 20, "stone": 20},
+        "hp": 100,
+        "build_time": 6,
+        "storage_bonus": {"wood": 200, "stone": 200, "gold": 100, "food": 150},
+        "color": [130, 90, 60]
+    },
+    "lumber_mill": {
+        "name": "Lumber Mill",
+        "tile_size": [2, 2],
+        "cost": {"wood": 15, "stone": 10},
+        "hp": 60,
+        "build_time": 4,
+        "production": {"wood": 8},
+        "description": "Produces wood from nearby forests",
+        "color": [100, 70, 40]
+    },
+    "quarry": {
+        "name": "Quarry",
+        "tile_size": [2, 2],
+        "cost": {"wood": 20, "stone": 5},
+        "hp": 80,
+        "build_time": 5,
+        "production": {"stone": 6},
+        "description": "Produces stone from the ground",
+        "color": [160, 160, 170]
+    },
+    "gold_mine": {
+        "name": "Gold Mine",
+        "tile_size": [1, 1],
+        "cost": {"wood": 30, "stone": 20},
+        "hp": 60,
+        "build_time": 6,
+        "production": {"gold": 3},
+        "description": "Produces gold ore",
+        "color": [200, 180, 50]
+    },
+    "town_center": {
+        "name": "Town Center",
+        "tile_size": [3, 3],
+        "cost": {},
+        "hp": 500,
+        "build_time": 0,
+        "population_bonus": 10,
+        "storage_bonus": {"wood": 200, "stone": 200, "gold": 100, "food": 150},
+        "color": [200, 180, 100]
+    }
+}

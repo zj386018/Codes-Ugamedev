@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/workspace-winston/B-github-codes/Codes-Ugamedev/A2-aiHereComes\" log --oneline -20)",
+      "Bash(git -C \"c:/workspace-winston/B-github-codes/Codes-Ugamedev/A2-aiHereComes\" remote -v)",
+      "WebSearch",
+      "Bash(python main.py)",
+      "Bash(pip install:*)",
+      "Bash(python -c ':*)"
+    ]
+  }
+}

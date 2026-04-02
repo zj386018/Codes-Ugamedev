@@ -1,0 +1,22 @@
+{
+    "waves": [
+        {"number": 1, "prep_time": 120, "zombies": {"basic": 10}},
+        {"number": 2, "prep_time": 90, "zombies": {"basic": 20, "runner": 5}},
+        {"number": 3, "prep_time": 90, "zombies": {"basic": 30, "runner": 10}},
+        {"number": 4, "prep_time": 80, "zombies": {"basic": 40, "runner": 15, "tank": 2}},
+        {"number": 5, "prep_time": 75, "zombies": {"basic": 50, "runner": 20, "tank": 3}},
+        {"number": 6, "prep_time": 70, "zombies": {"basic": 60, "runner": 25, "tank": 5}},
+        {"number": 7, "prep_time": 70, "zombies": {"basic": 70, "runner": 30, "tank": 7}},
+        {"number": 8, "prep_time": 65, "zombies": {"basic": 80, "runner": 35, "tank": 10}},
+        {"number": 9, "prep_time": 60, "zombies": {"basic": 90, "runner": 40, "tank": 12}},
+        {"number": 10, "prep_time": 60, "zombies": {"basic": 100, "runner": 50, "tank": 15, "boss": 1}},
+        {"number": 15, "prep_time": 50, "zombies": {"basic": 200, "runner": 80, "tank": 30, "boss": 2}},
+        {"number": 20, "prep_time": 45, "zombies": {"basic": 300, "runner": 120, "tank": 50, "boss": 3}}
+    ],
+    "scaling": {
+        "hp_multiplier_per_wave": 0.1,
+        "damage_multiplier_per_wave": 0.05
+    },
+    "spawn_interval": 0.5,
+    "max_waves": 50
+}
