@@ -1,0 +1,120 @@
+[gd_scene load_steps=9 format=3 uid="uid://ui_layer01"]
+
+[ext_resource type="Script" path="res://scripts/ui/main_ui.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/hud_controller.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://char_panel01" path="res://scenes/ui/panels/character_panel.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://inv_panel01" path="res://scenes/ui/panels/inventory_panel.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://skill_panel01" path="res://scenes/ui/panels/skill_panel.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://build_panel01" path="res://scenes/ui/panels/building_panel.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://shop_panel01" path="res://scenes/ui/panels/shop_panel.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://setting_panel01" path="res://scenes/ui/panels/settings_panel.tscn" id="8"]
+
+[node name="UILayer" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="TopHUD" type="HBoxContainer" parent="."]
+offset_left = 10
+offset_top = 10
+offset_right = 710
+offset_bottom = 40
+script = ExtResource("2")
+
+[node name="GoldLabel" type="Label" parent="TopHUD"]
+text = "金币: 0"
+custom_minimum_size = Vector2(150, 30)
+
+[node name="LevelLabel" type="Label" parent="TopHUD"]
+text = "Lv.1"
+custom_minimum_size = Vector2(100, 30)
+
+[node name="StageLabel" type="Label" parent="TopHUD"]
+text = "关卡 1"
+custom_minimum_size = Vector2(100, 30)
+
+[node name="MonstersLabel" type="Label" parent="TopHUD"]
+text = "怪物: 0/3"
+custom_minimum_size = Vector2(120, 30)
+
+[node name="XPBar" type="ProgressBar" parent="."]
+offset_left = 10
+offset_top = 45
+offset_right = 710
+offset_bottom = 62
+max_value = 100
+value = 0
+show_percentage = false
+
+[node name="XPLabel" type="Label" parent="XPBar"]
+offset_left = 200
+offset_top = -1
+offset_right = 500
+offset_bottom = 16
+horizontal_alignment = 1
+text = "0 / 100"
+
+[node name="PanelContainer" type="Control" parent="."]
+offset_left = 10
+offset_top = 500
+offset_right = 710
+offset_bottom = 1200
+
+[node name="CharacterPanel" parent="PanelContainer" instance=ExtResource("3")]
+visible = false
+
+[node name="InventoryPanel" parent="PanelContainer" instance=ExtResource("4")]
+visible = false
+
+[node name="SkillPanel" parent="PanelContainer" instance=ExtResource("5")]
+visible = false
+
+[node name="BuildingPanel" parent="PanelContainer" instance=ExtResource("6")]
+visible = false
+
+[node name="ShopPanel" parent="PanelContainer" instance=ExtResource("7")]
+visible = false
+
+[node name="SettingsPanel" parent="PanelContainer" instance=ExtResource("8")]
+visible = false
+
+[node name="BottomNav" type="HBoxContainer" parent="."]
+offset_left = 10
+offset_top = 1210
+offset_right = 710
+offset_bottom = 1270
+
+[node name="BattleBtn" type="Button" parent="BottomNav"]
+text = "战斗"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="CharBtn" type="Button" parent="BottomNav"]
+text = "角色"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="InvBtn" type="Button" parent="BottomNav"]
+text = "背包"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="SkillBtn" type="Button" parent="BottomNav"]
+text = "技能"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="BuildBtn" type="Button" parent="BottomNav"]
+text = "建筑"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="ShopBtn" type="Button" parent="BottomNav"]
+text = "商店"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="SettingBtn" type="Button" parent="BottomNav"]
+text = "设置"
+custom_minimum_size = Vector2(95, 50)
+
+[node name="ToastLayer" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2

@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn3jk2m5vyqr1"]
+
+[ext_resource type="Script" path="res://scripts/battle/battle_scene.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://cy8qf6yxklm3v" path="res://scenes/battle/battle_unit_scene.tscn" id="2"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -360
+offset_top = -640
+offset_right = 360
+offset_bottom = 640
+color = Color(0.12, 0.12, 0.18, 1)
+
+[node name="Ground" type="ColorRect" parent="."]
+offset_left = -360
+offset_top = 100
+offset_right = 360
+offset_bottom = 640
+color = Color(0.15, 0.25, 0.12, 1)
+
+[node name="PlayerUnit" parent="." instance=ExtResource("2")]
+position = Vector2(-120, 20)
+is_player = true
+
+[node name="MonsterUnit" parent="." instance=ExtResource("2")]
+position = Vector2(120, 20)
+is_player = false
+
+[node name="FloatingTexts" type="Node2D" parent="."]
+
+[node name="BattleInfo" type="Label" parent="."]
+offset_left = -200
+offset_top = -600
+offset_right = 200
+offset_bottom = -570
+horizontal_alignment = 1
+text = "战斗中..."

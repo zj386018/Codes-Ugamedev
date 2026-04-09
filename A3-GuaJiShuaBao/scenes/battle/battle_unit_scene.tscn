@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy8qf6yxklm3v"]
+
+[ext_resource type="Script" path="res://scripts/battle/battle_unit.gd" id="1"]
+
+[node name="BattleUnit" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Body" type="ColorRect" parent="."]
+offset_left = -30
+offset_top = -35
+offset_right = 30
+offset_bottom = 35
+color = Color(0.2, 0.5, 0.9, 1)
+
+[node name="EyeLeft" type="ColorRect" parent="."]
+offset_left = -15
+offset_top = -25
+offset_right = -3
+offset_bottom = -11
+color = Color(1, 1, 1, 1)
+
+[node name="EyeRight" type="ColorRect" parent="."]
+offset_left = 5
+offset_top = -25
+offset_right = 17
+offset_bottom = -11
+color = Color(1, 1, 1, 1)
+
+[node name="PupilLeft" type="ColorRect" parent="."]
+offset_left = -11
+offset_top = -21
+offset_right = -5
+offset_bottom = -15
+color = Color(0, 0, 0, 1)
+
+[node name="PupilRight" type="ColorRect" parent="."]
+offset_left = 9
+offset_top = -21
+offset_right = 15
+offset_bottom = -15
+color = Color(0, 0, 0, 1)
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -30
+offset_top = -55
+offset_right = 30
+offset_bottom = -35
+horizontal_alignment = 1
+text = "勇者"
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = -35
+offset_top = 40
+offset_right = 35
+offset_bottom = 52
+max_value = 100
+value = 100
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="."]
+offset_left = -35
+offset_top = 52
+offset_right = 35
+offset_bottom = 68
+horizontal_alignment = 1
+text = "100/100"

@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but it can also be edited via script.
+
+[application]
+
+config/name="挂机刷爆"
+config/description="Idle RPG + Management Game"
+run/main_scene="res://scenes/main.tscn"
+config/icon="res://scenes/icon.svg"
+config/features=PackedStringArray("4.2", "Forward Plus")
+
+[autoload]
+
+Constants="*res://scripts/utils/constants.gd"
+TimeManager="*res://scripts/autoload/time_manager.gd"
+NotificationManager="*res://scripts/autoload/notification_manager.gd"
+PlayerData="*res://scripts/autoload/player_data.gd"
+EconomyManager="*res://scripts/autoload/economy_manager.gd"
+EquipmentManager="*res://scripts/autoload/equipment_manager.gd"
+SkillManager="*res://scripts/autoload/skill_manager.gd"
+BuildingManager="*res://scripts/autoload/building_manager.gd"
+StageManager="*res://scripts/autoload/stage_manager.gd"
+BattleManager="*res://scripts/autoload/battle_manager.gd"
+ShopManager="*res://scripts/autoload/shop_manager.gd"
+SaveManager="*res://scripts/autoload/save_manager.gd"
+GameManager="*res://scripts/autoload/game_manager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="forward_plus"
+textures/vram_compression/import_etc2_astc=true

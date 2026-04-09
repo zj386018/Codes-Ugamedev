@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://inv_panel01"]
+
+[ext_resource type="Script" path="res://scripts/ui/panels/inventory_panel.gd" id="1"]
+
+[node name="InventoryPanel" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10
+offset_top = 10
+offset_right = -10
+offset_bottom = -10
+
+[node name="Title" type="Label" parent="VBox"]
+text = "装备背包"
+
+[node name="SortBar" type="HBoxContainer" parent="VBox"]
+
+[node name="SortBtn" type="Button" parent="VBox/SortBar"]
+text = "按稀有度排序"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBox"]
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Grid" type="GridContainer" parent="VBox/ScrollContainer"]
+columns = 2
+
+[node name="ItemDetail" type="Panel" parent="VBox"]
+custom_minimum_size = Vector2(0, 160)
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ItemDetail"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10
+offset_top = 10
+offset_right = -10
+offset_bottom = -10
+
+[node name="NameLabel" type="Label" parent="VBox/ItemDetail/VBox"]
+text = "选择一件装备"
+
+[node name="StatsLabel" type="Label" parent="VBox/ItemDetail/VBox"]
+text = ""
+
+[node name="HBox" type="HBoxContainer" parent="VBox/ItemDetail/VBox"]
+
+[node name="EquipBtn" type="Button" parent="VBox/ItemDetail/VBox/HBox"]
+text = "装备"
+
+[node name="SellBtn" type="Button" parent="VBox/ItemDetail/VBox/HBox"]
+text = "出售"
